@@ -2,6 +2,7 @@
   "name": "boruta/common-abstraction",
   "description": "Basic classes facilitating creation of efficient object-oriented applications.",
   "type": "library",
+  "license": "MIT",
   "authors": [
     {
       "name": "Boruta",
