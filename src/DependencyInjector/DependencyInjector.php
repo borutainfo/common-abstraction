@@ -3,18 +3,19 @@
  * @author Sebastian Boruta <sebastian@boruta.info>
  */
 
-namespace Boruta\CommonAbstraction\DependencyInjection;
+namespace Boruta\CommonAbstraction\DependencyInjector;
 
 
 use Exception;
 use Pimple\Container;
+use Pimple\Exception\FrozenServiceException;
 use ReflectionClass;
 
 /**
- * Class DependencyInjection
- * @package Boruta\CommonAbstraction\DependencyInjection
+ * Class DependencyInjector
+ * @package Boruta\CommonAbstraction\DependencyInjector
  */
-class DependencyInjection
+class DependencyInjector
 {
     /**
      * @var Container
@@ -85,5 +86,21 @@ class DependencyInjection
         } catch (Exception $exception) {
             return null; // unable to create class instance
         }
+    }
+
+    /**
+     * @param string $key
+     * @param callable $callable
+     * @return bool
+     */
+    public static function set(string $key, callable $callable): bool
+    {
+        try {
+            self::getContainer()->offsetSet($key, $callable);
+        } catch (FrozenServiceException $exception) {
+            return false;
+        }
+
+        return true;
     }
 }
