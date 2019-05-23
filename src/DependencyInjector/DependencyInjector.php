@@ -73,7 +73,7 @@ class DependencyInjector
 
                 $closure = function () use ($class, $dependencies) {
                     foreach ($dependencies as &$param) {
-                        if (class_exists($param)) {
+                        if (is_string($param) && class_exists($param)) {
                             $param = self::get($param);
                         }
                     }
