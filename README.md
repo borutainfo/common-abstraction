@@ -9,7 +9,7 @@ Install the library using Composer. Please read the [Composer Documentation](htt
 
 ```json
 "require": {
-    "boruta/common-abstraction": "~0.1"
+    "boruta/common-abstraction": "^0.1"
 }
 ```
 

@@ -15,6 +15,7 @@
     }
   },
   "require": {
+    "php": ">=7.1",
     "symfony/yaml": "^4.2.1",
     "pimple/pimple": "^3.2.3",
     "cartalyst/collections": "^1.1.0",

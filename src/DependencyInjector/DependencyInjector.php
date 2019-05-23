@@ -6,6 +6,7 @@
 namespace Boruta\CommonAbstraction\DependencyInjector;
 
 
+use Boruta\CommonAbstraction\ServiceProvider\ServiceProviderInterface;
 use Exception;
 use Pimple\Container;
 use Pimple\Exception\FrozenServiceException;
@@ -102,5 +103,29 @@ class DependencyInjector
         }
 
         return true;
+    }
+
+    /**
+     * @param $serviceProviders
+     * @return bool
+     */
+    public static function register($serviceProviders): bool
+    {
+        if (is_string($serviceProviders)) {
+            /** @var ServiceProviderInterface $serviceProviderInstance */
+            $serviceProviderInstance = self::get($serviceProviders);
+            $serviceProviderInstance->register();
+            return true;
+        }
+
+        if (is_array($serviceProviders)) {
+            $result = true;
+            foreach ($serviceProviders as $serviceProvider) {
+                $result = $result && self::register($serviceProvider);
+            }
+            return $result;
+        }
+
+        return false;
     }
 }
