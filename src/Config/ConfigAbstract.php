@@ -29,7 +29,7 @@ abstract class ConfigAbstract
      * ConfigAbstract constructor.
      * @param string $configPath
      */
-    protected function __construct(string $configPath)
+    public function __construct(string $configPath)
     {
         try {
             $this->configData = (array)Yaml::parseFile($configPath);
