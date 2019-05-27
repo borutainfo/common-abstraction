@@ -15,6 +15,8 @@ use Psr\Log\LoggerInterface;
  */
 class FileLogger implements LoggerInterface
 {
+    private const BASE_PATH = __DIR__ . '/../../../../../';
+
     /**
      * @var LoggerConfig
      */
@@ -40,12 +42,11 @@ class FileLogger implements LoggerInterface
 
         $content = '[' . date('Y-m-d H:i:s') . '] ' . $message . PHP_EOL;
         if (!empty($content)) {
-            $content .= print_r($context, true) . PHP_EOL . PHP_EOL;
-        } else {
-            $content .= PHP_EOL;
+            $content .= print_r($context, true) . PHP_EOL;
         }
 
-        file_put_contents(rtrim($this->config->getPath(), '/') . '/' . $filename, $content, FILE_APPEND);
+        file_put_contents(self::BASE_PATH . trim($this->config->getPath(), '/') . '/' . $filename,
+            $content, FILE_APPEND);
     }
 
     /**
