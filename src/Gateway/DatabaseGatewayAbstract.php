@@ -12,10 +12,10 @@ use PDO;
 use PDOException;
 
 /**
- * Class AbstractDatabaseGateway
+ * Class DatabaseGatewayAbstract
  * @package Boruta\CommonAbstraction\Gateway
  */
-abstract class AbstractDatabaseGateway
+abstract class DatabaseGatewayAbstract
 {
     /**
      * @var PDO

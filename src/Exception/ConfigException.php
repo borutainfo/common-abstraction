@@ -9,10 +9,10 @@ namespace Boruta\CommonAbstraction\Exception;
 use RuntimeException;
 
 /**
- * Class DatabaseConfigException
+ * Class ConfigException
  * @package Boruta\CommonAbstraction\Exception
  */
-class DatabaseConfigException extends RuntimeException
+class ConfigException extends RuntimeException
 {
 
 }

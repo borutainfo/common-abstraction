@@ -10,10 +10,10 @@ use Boruta\CommonAbstraction\Exception\InvalidCollectionElementException;
 use Cartalyst\Collections\Collection;
 
 /**
- * Class AbstractCollection
+ * Class CollectionAbstract
  * @package Boruta\CommonAbstraction\Collection
  */
-abstract class AbstractCollection extends Collection
+abstract class CollectionAbstract extends Collection
 {
     protected const ELEMENT_CLASS = null;
 
