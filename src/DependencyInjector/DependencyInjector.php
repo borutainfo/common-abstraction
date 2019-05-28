@@ -6,6 +6,7 @@
 namespace Boruta\CommonAbstraction\DependencyInjector;
 
 
+use Boruta\CommonAbstraction\Exception\DependencyInjectorException;
 use Boruta\CommonAbstraction\ServiceProvider\ServiceProviderInterface;
 use Exception;
 use Pimple\Container;
@@ -26,7 +27,7 @@ class DependencyInjector
     /**
      * @return Container
      */
-    protected static function getContainer(): Container
+    private static function getContainer(): Container
     {
         if (self::$container === null) {
             self::$container = new Container();
@@ -68,14 +69,27 @@ class DependencyInjector
                     } elseif ($parameter->isDefaultValueAvailable()) {
                         $dependencies[$parameter->getName()] = $parameter->getDefaultValue();
                     } else {
-                        return null; // unable to create one of subdependencies
+                        return null; // unable to create one of sub-dependencies
                     }
                 }
 
-                $closure = function () use ($class, $dependencies) {
+                $closure = function () use ($class, $dependencies, $container) {
                     foreach ($dependencies as &$param) {
-                        if (is_string($param) && class_exists($param)) {
+                        if (!is_string($param)) {
+                            continue;
+                        }
+
+                        if ($container->offsetExists($param)) {
+                            $param = $container->offsetGet($param);
+                        } elseif (class_exists($param)) {
                             $param = self::get($param);
+                        } elseif (interface_exists($param)) {
+                            $implementingClasses = self::getImplementingClasses($param);
+                            if (count($implementingClasses) === 1) {
+                                $param = self::get($implementingClasses[0]);
+                            } else {
+                                throw new DependencyInjectorException('Unable to find implementation for: ' . $param);
+                            }
                         }
                     }
                     return $class->newInstanceArgs($dependencies);
@@ -84,20 +98,28 @@ class DependencyInjector
 
             $container->offsetSet($id, $container->factory($closure));
             return $container->offsetGet($id);
+        } catch (DependencyInjectorException $exception) {
+            throw $exception;
         } catch (Exception $exception) {
-            return null; // unable to create class instance
+            throw new DependencyInjectorException('Unable to create dependency: ' . $id);
         }
     }
 
     /**
      * @param string $key
-     * @param callable $callable
+     * @param $value
      * @return bool
      */
-    public static function set(string $key, callable $callable): bool
+    public static function set(string $key, $value): bool
     {
         try {
-            self::getContainer()->offsetSet($key, $callable);
+            if (is_callable($value)) {
+                self::getContainer()->offsetSet($key, $value);
+            } elseif (is_string($value)) {
+                self::getContainer()->offsetSet($key, function () use ($value) {
+                    return self::get($value);
+                });
+            }
         } catch (FrozenServiceException $exception) {
             return false;
         }
@@ -127,5 +149,16 @@ class DependencyInjector
         }
 
         return false;
+    }
+
+    /**
+     * @param string $interfaceName
+     * @return array
+     */
+    private static function getImplementingClasses(string $interfaceName): array
+    {
+        return array_filter(get_declared_classes(), function ($className) use ($interfaceName) {
+            return in_array($interfaceName, class_implements($className), true);
+        });
     }
 }

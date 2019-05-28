@@ -24,6 +24,8 @@ interface ServiceProviderInterface
             return new DatabaseConfig(__DIR__ . '/../../config/database.yml');
         });
 
+        DependencyInjector::set(LoggerInterface::class, FileLogger::class);
+
         ...
     }
     */
