@@ -28,11 +28,11 @@ abstract class MySQLGatewayAbstract
 
     /**
      * AbstractDatabaseGateway constructor.
-     * @param MySQLConfig $databaseConfig
+     * @param MySQLConfig $config
      */
-    public function __construct(MySQLConfig $databaseConfig)
+    public function __construct(MySQLConfig $config)
     {
-        $this->config = $databaseConfig;
+        $this->config = $config;
     }
 
     public function __destruct()

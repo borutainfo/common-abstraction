@@ -20,8 +20,8 @@ interface ServiceProviderInterface
     /* example:
     public function register(): void
     {
-        DependencyInjector::set(DatabaseConfig::class, function () {
-            return new DatabaseConfig(__DIR__ . '/../../config/database.yml');
+        DependencyInjector::set(MySQLConfig::class, function () {
+            return new MySQLConfig(__DIR__ . '/../../config/mysql.yml');
         });
 
         DependencyInjector::set(LoggerInterface::class, FileLogger::class);

@@ -47,7 +47,7 @@ abstract class RedisGatewayAbstract
      * @param $value
      * @return bool
      */
-    public function setIfNotExists(string $key, $value): bool
+    protected function setIfNotExists(string $key, $value): bool
     {
         return $this->client->setnx($key, $value) === 1;
     }
@@ -57,7 +57,7 @@ abstract class RedisGatewayAbstract
      * @param string $value
      * @return bool
      */
-    public function push(string $key, string $value): bool
+    protected function push(string $key, string $value): bool
     {
         return $this->client->rpush($key, [$value]) > 0;
     }
@@ -66,7 +66,7 @@ abstract class RedisGatewayAbstract
      * @param string $key
      * @return string|null
      */
-    public function pop(string $key): ?string
+    protected function pop(string $key): ?string
     {
         return $this->client->lpop($key) ?? null;
     }
