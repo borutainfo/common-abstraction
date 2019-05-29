@@ -9,10 +9,10 @@ namespace Boruta\CommonAbstraction\Exception;
 use RuntimeException;
 
 /**
- * Class DatabaseConnectionException
+ * Class MySQLConnectionException
  * @package Boruta\CommonAbstraction\Exception
  */
-class DatabaseConnectionException extends RuntimeException
+class MySQLConnectionException extends RuntimeException
 {
 
 }

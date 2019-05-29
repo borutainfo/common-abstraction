@@ -6,33 +6,33 @@
 namespace Boruta\CommonAbstraction\Gateway;
 
 
-use Boruta\CommonAbstraction\Config\DatabaseConfig;
-use Boruta\CommonAbstraction\Exception\DatabaseConnectionException;
+use Boruta\CommonAbstraction\Config\MySQLConfig;
+use Boruta\CommonAbstraction\Exception\MySQLConnectionException;
 use PDO;
 use PDOException;
 
 /**
- * Class DatabaseGatewayAbstract
+ * Class MySQLGatewayAbstract
  * @package Boruta\CommonAbstraction\Gateway
  */
-abstract class DatabaseGatewayAbstract
+abstract class MySQLGatewayAbstract
 {
     /**
      * @var PDO
      */
     private $connection;
     /**
-     * @var DatabaseConfig
+     * @var MySQLConfig
      */
-    private $databaseConfig;
+    private $config;
 
     /**
      * AbstractDatabaseGateway constructor.
-     * @param DatabaseConfig $databaseConfig
+     * @param MySQLConfig $databaseConfig
      */
-    public function __construct(DatabaseConfig $databaseConfig)
+    public function __construct(MySQLConfig $databaseConfig)
     {
-        $this->databaseConfig = $databaseConfig;
+        $this->config = $databaseConfig;
     }
 
     public function __destruct()
@@ -42,7 +42,7 @@ abstract class DatabaseGatewayAbstract
 
     /**
      * @return PDO
-     * @throws DatabaseConnectionException
+     * @throws MySQLConnectionException
      */
     protected function database(): PDO
     {
@@ -51,7 +51,7 @@ abstract class DatabaseGatewayAbstract
     }
 
     /**
-     * @throws DatabaseConnectionException
+     * @throws MySQLConnectionException
      */
     private function connect(): void
     {
@@ -60,11 +60,11 @@ abstract class DatabaseGatewayAbstract
         }
 
         try {
-            $dsn = 'mysql:host=' . $this->databaseConfig->getHost() . ';dbname=' . $this->databaseConfig->getDatabase();
-            $this->connection = new PDO($dsn, $this->databaseConfig->getLogin(), $this->databaseConfig->getPassword());
+            $dsn = 'mysql:host=' . $this->config->getHost() . ';dbname=' . $this->config->getDatabase();
+            $this->connection = new PDO($dsn, $this->config->getLogin(), $this->config->getPassword());
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
         } catch (PDOException $exception) {
-            throw new DatabaseConnectionException($exception->getMessage());
+            throw new MySQLConnectionException($exception->getMessage());
         }
     }
 

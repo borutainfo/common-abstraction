@@ -6,7 +6,7 @@
 namespace Boruta\CommonAbstraction\Logger;
 
 
-use Boruta\CommonAbstraction\Config\LoggerConfig;
+use Boruta\CommonAbstraction\Config\FileLoggerConfig;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -18,15 +18,15 @@ class FileLogger implements LoggerInterface
     private const BASE_PATH = __DIR__ . '/../../../../../';
 
     /**
-     * @var LoggerConfig
+     * @var FileLoggerConfig
      */
     private $config;
 
     /**
      * FileLogger constructor.
-     * @param LoggerConfig $config
+     * @param FileLoggerConfig $config
      */
-    public function __construct(LoggerConfig $config)
+    public function __construct(FileLoggerConfig $config)
     {
         $this->config = $config;
     }

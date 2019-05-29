@@ -7,12 +7,12 @@ namespace Boruta\CommonAbstraction\Config;
 
 
 /**
- * Class DatabaseConfig
+ * Class MySQLConfig
  * @package Boruta\CommonAbstraction\Config
  */
-class DatabaseConfig extends ConfigAbstract
+class MySQLConfig extends ConfigAbstract
 {
-    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/database.yml';
+    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/mysql.yml';
     /**
      * @var array
      */

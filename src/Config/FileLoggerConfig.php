@@ -7,12 +7,12 @@ namespace Boruta\CommonAbstraction\Config;
 
 
 /**
- * Class LoggerConfig
+ * Class FileLoggerConfig
  * @package Boruta\CommonAbstraction\Config
  */
-class LoggerConfig extends ConfigAbstract
+class FileLoggerConfig extends ConfigAbstract
 {
-    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/logger.yml';
+    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/file-logger.yml';
     /**
      * @var array
      */
