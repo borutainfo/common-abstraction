@@ -42,22 +42,51 @@ abstract class RedisGatewayAbstract
         $this->client = new Client($parameters, $options);
     }
 
+    // keys:
+
     /**
      * @param string $key
      * @param $value
      * @return bool
      */
-    protected function setIfNotExists(string $key, $value): bool
+    protected function setKeyIfNotExists(string $key, string $value): bool
     {
         return $this->client->setnx($key, $value) === 1;
     }
+
+    // sets:
 
     /**
      * @param string $key
      * @param string $value
      * @return bool
      */
-    protected function push(string $key, string $value): bool
+    protected function addToSeIfNotExists(string $key, string $value): bool
+    {
+        return (bool)$this->client->sadd($key, [$value]);
+    }
+
+    // hash:
+
+    /**
+     * @param string $key
+     * @param string $field
+     * @param string $value
+     * @return bool
+     */
+    protected function addToHash(string $key, string $field, string $value): bool
+    {
+        return (bool)$this->client->hset($key, $field, $value);
+    }
+
+    // lists:
+
+    /**
+     * @param string $key
+     * @param string $value
+     * @return bool
+     */
+    protected function pushToList(string $key, string $value): bool
     {
         return $this->client->rpush($key, [$value]) > 0;
     }
@@ -66,7 +95,7 @@ abstract class RedisGatewayAbstract
      * @param string $key
      * @return string|null
      */
-    protected function pop(string $key): ?string
+    protected function popFromList(string $key): ?string
     {
         return $this->client->lpop($key) ?? null;
     }
