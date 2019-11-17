@@ -45,6 +45,6 @@ class Domain implements ValueObjectInterface
      */
     protected function validate($value): bool
     {
-        return \filter_var($value, FILTER_VALIDATE_DOMAIN);
+        return (bool)\filter_var($value, FILTER_VALIDATE_DOMAIN);
     }
 }

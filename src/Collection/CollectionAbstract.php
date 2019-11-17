@@ -7,6 +7,7 @@ namespace Boruta\CommonAbstraction\Collection;
 
 
 use Boruta\CommonAbstraction\Exception\InvalidCollectionElementException;
+use Boruta\CommonAbstraction\ValueObject\ValueObjectInterface;
 use Cartalyst\Collections\Collection;
 
 /**
@@ -51,5 +52,26 @@ abstract class CollectionAbstract extends Collection
         if (!is_object($value) || get_class($value) !== self::ELEMENT_CLASS) {
             throw new InvalidCollectionElementException('Invalid type of given value!');
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        if (empty($this->items)) {
+            return [];
+        }
+
+        if ($this->first() instanceof ValueObjectInterface) {
+            $data = [];
+            /** @var ValueObjectInterface $value */
+            foreach ($this->items as $key => $value) {
+                $data[$key] = $value->value();
+            }
+            return $data;
+        }
+
+        return parent::toArray();
     }
 }
