@@ -13,6 +13,7 @@ namespace Boruta\CommonAbstraction\Config;
 class FileLoggerConfig extends ConfigAbstract
 {
     protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/file-logger.yml';
+
     /**
      * @var array
      */

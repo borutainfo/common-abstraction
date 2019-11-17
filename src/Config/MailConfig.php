@@ -5,19 +5,18 @@
 
 namespace Boruta\CommonAbstraction\Config;
 
-
 /**
- * Class MySQLConfig
+ * Class MailConfig
  * @package Boruta\CommonAbstraction\Config
  */
-class MySQLConfig extends ConfigAbstract
+class MailConfig extends ConfigAbstract
 {
-    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/mysql.yml';
+    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/mail.yml';
 
     /**
      * @var array
      */
-    protected $requiredFields = ['host', 'login', 'password', 'database'];
+    protected $requiredFields = ['host', 'login', 'password'];
 
     /**
      * @return string
@@ -44,18 +43,18 @@ class MySQLConfig extends ConfigAbstract
     }
 
     /**
-     * @return string
-     */
-    public function getDatabase(): string
-    {
-        return (string)$this->getConfigData('database');
-    }
-
-    /**
      * @return int
      */
     public function getPort(): int
     {
-        return (int)$this->getConfigData('port') ?: 3306;
+        return (int)$this->getConfigData('port') ?: 587;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSmtpAuth(): bool
+    {
+        return (bool)$this->getConfigData('smtpAuth') ?: true;
     }
 }

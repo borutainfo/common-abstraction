@@ -1,0 +1,5 @@
+host: "localhost"
+port: 587
+login: "example@example.example"
+password: "example"
+smtpAuth: 1

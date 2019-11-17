@@ -31,6 +31,10 @@ abstract class ConfigAbstract
      */
     public function __construct(string $configPath)
     {
+        if (!file_exists($configPath)) {
+            throw new ConfigException('Unable to find config file: ' . $configPath);
+        }
+
         try {
             $this->configData = (array)Yaml::parseFile($configPath);
         } catch (ParseException $exception) {
@@ -51,7 +55,7 @@ abstract class ConfigAbstract
     protected function getConfigData(string $field = null)
     {
         if ($field !== null) {
-            return $this->configData[$field];
+            return $this->configData[$field] ?? null;
         }
 
         return $this->configData;
