@@ -7,8 +7,12 @@ namespace Boruta\CommonAbstraction\ServiceProvider;
 
 
 use Boruta\CommonAbstraction\DependencyInjector\DependencyInjector;
+use Boruta\CommonAbstraction\Gateway\FileQueueGateway;
+use Boruta\CommonAbstraction\Gateway\FileQueueGatewayInterface;
 use Boruta\CommonAbstraction\Gateway\MailGateway;
 use Boruta\CommonAbstraction\Gateway\MailGatewayInterface;
+use Boruta\CommonAbstraction\Repository\FileQueueRepository;
+use Boruta\CommonAbstraction\Repository\FileQueueRepositoryInterface;
 use Boruta\CommonAbstraction\Repository\MailRepository;
 use Boruta\CommonAbstraction\Repository\MailRepositoryInterface;
 
@@ -23,7 +27,9 @@ class BasicServiceProvider implements ServiceProviderInterface
      */
     public function register(): void
     {
-        DependencyInjector::set(MailRepositoryInterface::class, MailRepository::class);
         DependencyInjector::set(MailGatewayInterface::class, MailGateway::class);
+        DependencyInjector::set(MailRepositoryInterface::class, MailRepository::class);
+        DependencyInjector::set(FileQueueGatewayInterface::class, FileQueueGateway::class);
+        DependencyInjector::set(FileQueueRepositoryInterface::class, FileQueueRepository::class);
     }
 }
