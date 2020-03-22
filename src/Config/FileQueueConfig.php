@@ -9,11 +9,10 @@ namespace Boruta\CommonAbstraction\Config;
 /**
  * Class FileQueueConfig
  * @package Boruta\CommonAbstraction\Config
+ * @example file-queue.yml
  */
 class FileQueueConfig extends ConfigAbstract
 {
-    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/file-queue.yml';
-
     /**
      * @var array
      */

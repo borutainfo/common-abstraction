@@ -21,29 +21,41 @@ abstract class ConfigAbstract
      */
     private $configData;
     /**
+     * @var string
+     */
+    protected $configPath;
+    /**
      * @var array
      */
     protected $requiredFields = [];
 
     /**
      * ConfigAbstract constructor.
-     * @param string $configPath
+     * @param string|null $configPath
      */
-    public function __construct(string $configPath)
+    public function __construct(string $configPath = null)
     {
-        if (!file_exists($configPath)) {
-            throw new ConfigException('Unable to find config file: ' . $configPath);
+        if ($configPath !== null) {
+            $this->configPath = $configPath;
+        }
+
+        if ($this->configPath === null) {
+            throw new ConfigException('No config path.');
+        }
+
+        if (!file_exists($this->configPath)) {
+            throw new ConfigException('Unable to find config file: ' . $this->configPath);
         }
 
         try {
-            $this->configData = (array)Yaml::parseFile($configPath);
+            $this->configData = (array)Yaml::parseFile($this->configPath);
         } catch (ParseException $exception) {
-            throw new ConfigException('Unable to parse config file: ' . $configPath);
+            throw new ConfigException('Unable to parse config file: ' . $this->configPath);
         }
 
         foreach ($this->requiredFields as $requiredField) {
             if (!array_key_exists($requiredField, $this->configData)) {
-                throw new ConfigException('Config not contain required field `' . $requiredField . '`:' . $configPath);
+                throw new ConfigException('Config not contain required field `' . $requiredField . '`:' . $this->configPath);
             }
         }
     }

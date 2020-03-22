@@ -9,11 +9,10 @@ namespace Boruta\CommonAbstraction\Config;
 /**
  * Class RedisConfig
  * @package Boruta\CommonAbstraction\Config
+ * @example redis.yml
  */
 class RedisConfig extends ConfigAbstract
 {
-    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/redis.yml';
-
     /**
      * @var array
      */

@@ -8,11 +8,10 @@ namespace Boruta\CommonAbstraction\Config;
 /**
  * Class MailConfig
  * @package Boruta\CommonAbstraction\Config
+ * @example mail.yml
  */
 class MailConfig extends ConfigAbstract
 {
-    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/mail.yml';
-
     /**
      * @var array
      */

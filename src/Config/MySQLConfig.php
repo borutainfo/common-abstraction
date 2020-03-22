@@ -9,11 +9,10 @@ namespace Boruta\CommonAbstraction\Config;
 /**
  * Class MySQLConfig
  * @package Boruta\CommonAbstraction\Config
+ * @example mysql.yml
  */
 class MySQLConfig extends ConfigAbstract
 {
-    protected const CONFIG_FILE_PATH = __DIR__ . '/../../config/mysql.yml';
-
     /**
      * @var array
      */
