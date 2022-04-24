@@ -32,7 +32,7 @@ class FileLogger implements LoggerInterface
     /**
      * @param string $logType
      * @param string $message
-     * @param $context
+     * @param array $context
      */
     protected function logToFile(string $logType, string $message, array $context): void
     {
