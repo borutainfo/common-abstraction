@@ -46,7 +46,7 @@ abstract class RedisGatewayAbstract
 
     /**
      * @param string $key
-     * @param $value
+     * @param string $value
      * @return bool
      */
     protected function setKeyIfNotExists(string $key, string $value): bool
@@ -97,6 +97,6 @@ abstract class RedisGatewayAbstract
      */
     protected function popFromList(string $key): ?string
     {
-        return $this->client->lpop($key) ?? null;
+        return $this->client->lpop($key);
     }
 }
